@@ -25,9 +25,18 @@ class App extends Component {
     this.setState({isLoggenIn : true})
   }
 
+  // getUserLocation () {
+  //   return navigator.geolocation.getCurrentPosition((position) => {
+  //       return {lat : position.coords.latitude, lng: position.coords.longitude }
+  //       })
+  //   }
+
   render() {
     return (
-      !this.state.isLoggenIn ? <LogIn saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> : <Map />
+      !this.state.isLoggenIn ? 
+      <LogIn saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> 
+      :
+      <Map />
         // <BrowserRouter>
         //   <Routes>
         //     { !this.isLoggenIn ? <LogIn/> : <Map/>}

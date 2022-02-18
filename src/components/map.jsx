@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { defaultProps } from 'react-login-modal';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
+const centerTlv = {lat: 32.0853, lng: 34.7818}
+
 class Map extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
+  
+static defaultProps = {
+    center: centerTlv,
+    zoom: 14
+};
+
+  componentDidMount() {
+      if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(pos) {
+            this.defaultProps.center = { lat:pos.coords.latitude, lng:pos.coords.longitude }
+          });
+      }
+  }
 
   render() {
     return (
@@ -22,10 +31,11 @@ class Map extends Component {
           defaultZoom={this.props.zoom}
         >
           <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
+            lat={32.0853}
+            lng={34.7818}
+            text="Center TLV"
           />
+
         </GoogleMapReact>
       </div>
     );
