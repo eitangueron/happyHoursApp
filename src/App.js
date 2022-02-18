@@ -23,9 +23,14 @@ class App extends Component {
     }
   }
 
+  saveUserInfoToSessionStorage (userInfo) {
+    sessionStorage.setItem('happyHoursCache', JSON.stringify(userInfo))
+    this.isLoggenIn = true
+  }
+
   render() {
     return (
-      !this.isLoggenIn ? <LogIn/> : <Map userInfo={this.state.userInfo}/>
+      !this.isLoggenIn ? <LogIn/> : <Map saveUserInfoToSessionStorage={this.saveUserInfoToSessionStorage}/>
         // <BrowserRouter>
         //   <Routes>
         //     { !this.isLoggenIn ? <LogIn/> : <Map/>}
