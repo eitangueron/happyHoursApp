@@ -4,36 +4,38 @@ const axios = require('axios').default;
 
 
 class LogIn extends Component {
-
+    
     saveNewUserInDB = (username, email, password) => {
-        // const res = await axios.post(`server url/:${username}/:${password}/:${email}`)
-        // const res = axios.post('/server url', {username, email, password})
-        const res = true
-        if(!res){ 
-            alert('we had an error, please try again')
-        } else {
-            this.props.saveUserInfoToSessionStorage(userInfo)
-            alert('Great success')
-        }
+        // const savedSuccesfully = await axios.post(`server url/:${username}/:${password}/:${email}`)
+        // const savedSuccesfully = axios.post('/server url', {username, email, password})
+        const savedSuccesfully = true
+        return savedSuccesfully
     }
 
     validateLogInInDB = (username, password) => {
         return true
-        // const res = await axios.get(`server url/:${username}/:${password}`)
-        // return res
+        // const userExist = await axios.get(`server url/:${username}/:${password}`)
+        // return userExist
     }
 
-    handleSignup = (username, email, password) => {
-        this.saveNewUserInDB(username, email, password)
+    handleSignup = async (username, email, password) => {
+        await this.saveNewUserInDB(username, email, password)
+        const savedSuccesfully = true
+        if(!savedSuccesfully){ 
+            alert('we had an error, please try again')
+        } else {
+            this.props.saveUserInfoToSessionStorage({username})
+            // alert('Great success')
+        }
     };
 
     handleLogin = async (username, password) => {
-        const userInfo = await this.validateLogInInDB(username, password)
-        if(!userInfo){
+        // const userExist = await this.validateLogInInDB(username, password)
+        const userExist = true
+        if(!userExist){
             alert('Wrong info try again')
         } else {
-            this.props.saveUserInfoToSessionStorage(userInfo)
-            // sessionStorage.setItem('happyHoursCache', JSON.stringify(userInfo))
+            this.props.saveUserInfoToSessionStorage({username})
         }
     }
 
