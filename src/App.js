@@ -18,6 +18,7 @@ class App extends Component {
         time:null,
         radius:Infinity,
         placeType: null,
+        name:""
       }
     }
   }
@@ -48,7 +49,7 @@ class App extends Component {
       :
       <div style={{display:'grid', height:'100vh', width:'100vw', }}>
         <FilterBar setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
-        <Map style={{ height:'90vh', width:'100vw', }} appliedFilter={this.state.appliedFilter}/>
+        <Map style={{ height:'90vh', width:'100vw', }} appliedFilter={this.state.appliedFilter} setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)}/>
       </div>
     );
   }

@@ -36,6 +36,8 @@ static defaultProps = {
     return (this.props.appliedFilter.placeType ? i.placeType === this.props.appliedFilter.placeType : true)
     && ( this.props.appliedFilter.time ? this.compareTimeLongFormat(i.startTime , this.props.appliedFilter.time )
     && !this.compareTimeLongFormat(i.endTime , this.props.appliedFilter.time ) : true )
+    && ( this.props.appliedFilter.name ? i.name === this.props.appliedFilter.name : true)
+    
   }
 
   // return true iff t1<=t2
@@ -73,6 +75,9 @@ static defaultProps = {
             startTime={startTime}
             endTime={endTime}
             {...coords}
+            toggleShowOnlySelectedMarker = { () => this.props.appliedFilter.name ? 
+                this.props.setAppliedFilters({ ...this.props.appliedFilter, name:""} )
+            :  this.props.setAppliedFilters({ ...this.props.appliedFilter, name:name} )}
             />
       );
     });

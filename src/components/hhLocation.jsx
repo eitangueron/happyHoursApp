@@ -17,6 +17,7 @@ export default class HappyHourLocation extends Component {
     this.setState( {
       displayInfo: !this.state.displayInfo
     })
+    this.props.toggleShowOnlySelectedMarker()
   }
 
   render() {
