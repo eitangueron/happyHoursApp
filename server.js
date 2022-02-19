@@ -7,7 +7,7 @@ const session = require('express-session');
 const {MongoClient} = require("mongodb");
 const bodyParser = require('body-parser');
 
-let db = null;
+let db = "";
 
 /** init DB
 */
@@ -40,6 +40,10 @@ app.use(session({
     saveUninitialized: true
 }));
 
+const cors = require('cors');
+
+// use it before all route definitions
+app.use(cors())
 
 /** retrieving all locations
 */
@@ -74,7 +78,7 @@ app.get("/signup", async(req, res) => {
 
 	if (doc) {
 		console.log("didnt create user");
-		res.status(200).json({status: "username is taken"});
+		res.status(200).json({is_user_added: "false"});
 	} else {
 		//insert new user to the DB
 		try{
@@ -87,12 +91,12 @@ app.get("/signup", async(req, res) => {
 			
 			Users.insertOne(newUser);
 			console.log("successfully added the user to the DB");
-			res.status(500).json({is_user_added: "user added"});
+			res.status(200).json({is_user_added: "true"});
 			
 		} catch(err) {
 			
 			console.log("couldn't sign up the user");
-			res.status(200).json({status: "couldn't create user"});
+			res.status(500).json({status: "error"});
 			
 		}
 	}
@@ -122,13 +126,13 @@ app.get("/login", async (req, res) => {
         console.log("true");
 		//check if password matches to DB
 			if (password == doc.password) {
-               return res.status(500).json({usernameExists: true, passwordMatches: true});
+               return res.status(200).json({usernameExists: true, passwordMatches: true});
 			} else {
-               return res.status(500).json({usernameExists: true, passwordMatches: false});
+               return res.status(200).json({usernameExists: true, passwordMatches: false});
 			}
     } else {
         console.log("false");
-		return res.status(500).json({usernameExists: false, passwordMatches: false});
+		return res.status(200).json({usernameExists: false, passwordMatches: false});
     }
 })
 

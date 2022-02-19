@@ -44,13 +44,17 @@ class App extends Component {
 
   render() {
     return (
-      !this.state.isLoggenIn ? 
-      <LogIn saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> 
-      :
-      <div style={{display:'grid', height:'100vh', width:'100vw', }}>
-        <FilterBar setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
-        <Map style={{ height:'90vh', width:'100vw', }} appliedFilter={this.state.appliedFilter} setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)}/>
-      </div>
+      <div id="allApp" style={{height:'100vh', width:'100vw'}}>
+        {!this.state.isLoggenIn ? 
+        <LogIn setAllLocations={ (newLocations) => this.allLocation=newLocations }
+        saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> 
+        :
+        <div style={{display:'grid', height:'100vh', width:'100vw', }}>
+          <FilterBar setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
+          <Map style={{ height:'90vh', width:'100vw', }} allLocation={this.allLocation}
+          appliedFilter={this.state.appliedFilter} setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)}/>
+        </div>}
+        </div>
     );
   }
 }

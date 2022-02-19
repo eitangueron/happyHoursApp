@@ -33,7 +33,7 @@ export default class FilterBar extends Component {
                 >
                     <option value="">Place Type</option>
                     <option value="bar">Bar</option>
-                    <option value="resturant">Resturant</option>
+                    <option value="restaurant">Resturant</option>
                     <option value="coffeeHouse">Coffee House</option>
                 </select>
 

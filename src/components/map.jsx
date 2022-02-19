@@ -15,11 +15,16 @@ constructor(props){
 static defaultProps = {
     center: centerTlv,
     zoom: 14,
-    greatPlaces: [
-        {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'bar', startTime:'19:00', endTime:'21:00'},
-        {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'bar', startTime:'18:00', endTime:'20:00'},
-    ]
+    greatPlaces: JSON.parse( sessionStorage.getItem('All_LOCATIONS') )
+    // [
+    //     {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'bar', startTime:'19:00', endTime:'21:00'},
+    //     {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'bar', startTime:'18:00', endTime:'20:00'},
+    // ]
 };
+
+getAllLocations(){
+    return JSON.parse( sessionStorage.getItem('All_LOCATIONS') )
+}
 
 // not working ?
   componentDidMount() {
@@ -65,7 +70,7 @@ static defaultProps = {
     const hhLocations = this.props.greatPlaces
     .filter( location => this.respectedToAppliedFilters(location) )
     .map(location => {
-      const {name,placeType,startTime,endTime, ...coords} = location;
+      const {name,placeType,startTime,endTime,lat,long} = location;
       return (
             <HappyHourLocation
             key={name}
@@ -74,7 +79,8 @@ static defaultProps = {
             placeType={placeType}
             startTime={startTime}
             endTime={endTime}
-            {...coords}
+            lat={lat}
+            lng={long}
             toggleShowOnlySelectedMarker = { () => this.props.appliedFilter.name ? 
                 this.props.setAppliedFilters({ ...this.props.appliedFilter, name:""} )
             :  this.props.setAppliedFilters({ ...this.props.appliedFilter, name:name} )}
