@@ -33,9 +33,28 @@ static defaultProps = {
 
   respectedToAppliedFilters(i){
     // return true
-    return this.props.appliedFilter.placeType ? i.placeType === this.props.appliedFilter.placeType : true
-    // && i.startTime <= this.props.appliedFilter.time 
-    // && i.endTime >= this.props.appliedFilter.time
+    return (this.props.appliedFilter.placeType ? i.placeType === this.props.appliedFilter.placeType : true)
+    && ( this.props.appliedFilter.time ? this.compareTimeLongFormat(i.startTime , this.props.appliedFilter.time )
+    && !this.compareTimeLongFormat(i.endTime , this.props.appliedFilter.time ) : true )
+  }
+
+  // return true iff t1<=t2
+  compareTimeLongFormat(t1, t2){
+    const t1Hours = t1.slice(0,2)
+    const t2Hours = t2.slice(0,2)
+    const t1Minutes = t1.slice(3)
+    const t2Minutes = t2.slice(3)
+    if(t1Hours<t2Hours){
+        return true
+    } else if (t1Hours > t2Hours){
+        return false
+    } else {
+        if(t1Minutes<=t2Minutes){
+            return true
+        } else {
+            return false
+        }  
+    }
   }
 
 
