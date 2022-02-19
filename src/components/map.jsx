@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import HappyHourLocation from "./hhLocation";
-// const HappyHourBar = ({ text }) => <div width='5px' height='5px'>{text}</div>;
-
+// import { Link } from 'react-router-dom';
 const centerTlv = {lat: 32.0853, lng: 34.7818}
 
 // const zina = { name:'Zina', lat: 32.0921189452, lng: 34.7744750977, rating:4, startHappyHourTime:17, endHappyHourTime:19 }
@@ -12,9 +11,13 @@ class Map extends Component {
 static defaultProps = {
     center: centerTlv,
     zoom: 14,
-    greatPlaces: [{name:'Zina', lat: 32.0921189452, lng: 34.7744750977}]
+    greatPlaces: [
+        {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'Bar', startTime:'19:00', endTime:'21:00'},
+        {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'Bar', startTime:'18:00', endTime:'20:00'},
+    ]
 };
 
+// not working ?
   componentDidMount() {
       if(navigator.geolocation){
           navigator.geolocation.getCurrentPosition(function(pos) {
@@ -23,18 +26,30 @@ static defaultProps = {
       }
   }
 
+  respectedToAppliedFilters(i){
+    return true
+    // i.placeType === filteredPlaceType && 
+    // i.startTime <= filteredHour &&
+    // i.endTime >= filteredHour
+    //radius
+  }
+
   render() {
 
     const hhLocations = this.props.greatPlaces
+    .filter( location => this.respectedToAppliedFilters(location) )
     .map(location => {
-      const {name, ...coords} = location;
+      const {name,placeType,startTime,endTime, ...coords} = location;
       return (
-        <HappyHourLocation
-          key={name}
-          {...coords}
-          text={name}
-          // use your hover state (from store, react-controllables etc...)
-          hover={this.props.hoverKey === name} />
+            <HappyHourLocation
+            key={name}
+            name={name}
+            text={name}
+            placeType={placeType}
+            startTime={startTime}
+            endTime={endTime}
+            {...coords}
+            />
       );
     });
     
@@ -47,7 +62,7 @@ static defaultProps = {
         >
 
             {hhLocations}
-            
+
         </GoogleMapReact>
       </div>
     );

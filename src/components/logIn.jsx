@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LoginModal from "react-login-modal";
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 
 class LogIn extends Component {
