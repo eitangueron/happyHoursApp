@@ -49,8 +49,8 @@ class App extends Component {
         <LogIn setAllLocations={ (newLocations) => this.allLocation=newLocations }
         saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> 
         :
-        <div style={{display:'grid', height:'100vh', width:'100vw', }}>
-          <FilterBar setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
+        <div style={{display:'grid', height:'100%', width:'100%', }}>
+          <FilterBar style={{ height:'10vh', width:'100vw', }}setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
           <Map style={{ height:'90vh', width:'100vw', }} allLocation={this.allLocation}
           appliedFilter={this.state.appliedFilter} setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)}/>
         </div>}
