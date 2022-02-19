@@ -16,8 +16,8 @@ static defaultProps = {
     center: centerTlv,
     zoom: 14,
     greatPlaces: [
-        {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'Bar', startTime:'19:00', endTime:'21:00'},
-        {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'Bar', startTime:'18:00', endTime:'20:00'},
+        {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'bar', startTime:'19:00', endTime:'21:00'},
+        {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'bar', startTime:'18:00', endTime:'20:00'},
     ]
 };
 
@@ -33,9 +33,9 @@ static defaultProps = {
 
   respectedToAppliedFilters(i){
     // return true
-    return i.placeType === this.props.appliedFilter.placeType && 
-    i.startTime <= this.props.appliedFilter.time &&
-    i.endTime >= this.props.appliedFilter.time
+    return this.props.appliedFilter.placeType ? i.placeType === this.props.appliedFilter.placeType : true
+    // && i.startTime <= this.props.appliedFilter.time 
+    // && i.endTime >= this.props.appliedFilter.time
   }
 
 
