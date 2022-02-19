@@ -18,7 +18,13 @@ export default class FilterBar extends Component {
             <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
                 <span >Filter by:</span>
                 <button style={{width:'20vw', justifySelf:'end'}} 
-                onClick={() => this.props.setAppliedFilters({ time:null, radius:Infinity, placeType: null, name:"" })}>
+                onClick={() => {
+                    this.props.setAppliedFilters({ time:null, radius:Infinity, placeType: null, name:"" })
+                    document.getElementById("placeTypeFilter").value = ''
+                    // document.getElementById("radiusFilter").value = 0
+                    // document.getElementById("timeFilter").value = '0'
+
+                }}>
                 Clear
                 </button>
             </div>
