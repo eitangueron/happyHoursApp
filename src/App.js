@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogIn from './components/logIn';
 import Map from './components/map';
+import FilterBar from './components/filterBar'
 
 const SESSION_STORAGE_NAME = "happyHoursCache"
 
@@ -12,8 +13,17 @@ class App extends Component {
     super(props)
     this.userInfo = this.getUserInfoFromCache()
     this.state = {
-      isLoggenIn : this.userInfo ? true : false
+      isLoggenIn : this.userInfo ? true : false,
+      appliedFilter : {
+        time:null,
+        radius:Infinity,
+        placeType: null,
+      }
     }
+  }
+
+  setAppliedFilters(newFilters){
+    this.setState({ appliedFilter : newFilters })
   }
 
   getUserInfoFromCache = () => {
@@ -36,15 +46,10 @@ class App extends Component {
       !this.state.isLoggenIn ? 
       <LogIn saveUserInfoToSessionStorage={(userInfo) => this.saveUserInfoToSessionStorage(userInfo)}/> 
       :
-      <Map />
-        // <BrowserRouter>
-        //   <Routes>
-        //     { !this.isLoggenIn ? <LogIn/> : <Map/>}
-        //     {/* <Route path="/" element={<LogIn />} />
-        //     <Route path="expenses" element={<Map />} /> */}
-        //     {/* <Route path="invoices" element={<Invoices />} /> */}
-        //   </Routes>
-        // </BrowserRouter>
+      <div style={{display:'grid', height:'100vh', width:'100vw', }}>
+        <FilterBar setAppliedFilters={(newFilters) => this.setAppliedFilters(newFilters)} appliedFilter={this.state.appliedFilter}></FilterBar>
+        <Map style={{ height:'90vh', width:'100vw', }} appliedFilter={this.state.appliedFilter}/>
+      </div>
     );
   }
 }

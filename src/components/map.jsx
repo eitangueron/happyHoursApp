@@ -7,7 +7,11 @@ const centerTlv = {lat: 32.0853, lng: 34.7818}
 // const zina = { name:'Zina', lat: 32.0921189452, lng: 34.7744750977, rating:4, startHappyHourTime:17, endHappyHourTime:19 }
 
 class Map extends Component {
-  
+
+constructor(props){
+    super(props)
+}
+
 static defaultProps = {
     center: centerTlv,
     zoom: 14,
@@ -26,13 +30,14 @@ static defaultProps = {
       }
   }
 
+
   respectedToAppliedFilters(i){
-    return true
-    // i.placeType === filteredPlaceType && 
-    // i.startTime <= filteredHour &&
-    // i.endTime >= filteredHour
-    //radius
+    // return true
+    return i.placeType === this.props.appliedFilter.placeType && 
+    i.startTime <= this.props.appliedFilter.time &&
+    i.endTime >= this.props.appliedFilter.time
   }
+
 
   render() {
 
