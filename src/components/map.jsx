@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import HappyHourLocation from "./hhLocation";
-// import { Link } from 'react-router-dom';
-const centerTlv = {lat: 32.0853, lng: 34.7818}
-
-// const zina = { name:'Zina', lat: 32.0921189452, lng: 34.7744750977, rating:4, startHappyHourTime:17, endHappyHourTime:19 }
+const CENTER_TLV = {lat: 32.0853, lng: 34.7818}
 
 class Map extends Component {
 
@@ -12,21 +9,18 @@ constructor(props){
     super(props)
 }
 
+// dummyData = [
+//     {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'bar', startTime:'19:00', endTime:'21:00'},
+//     {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'bar', startTime:'18:00', endTime:'20:00'},
+// ]
+
 static defaultProps = {
-    center: centerTlv,
+    center: CENTER_TLV,
     zoom: 14,
-    greatPlaces: JSON.parse( sessionStorage.getItem('All_LOCATIONS') )
-    // [
-    //     {name:'Zina', lat: 32.0921189452, lng: 34.7744750977, placeType:'bar', startTime:'19:00', endTime:'21:00'},
-    //     {name:'Shatu Shoal', lat: 32.081472437785, lng: 34.780037160717, placeType:'bar', startTime:'18:00', endTime:'20:00'},
-    // ]
+    greatPlaces: JSON.parse( sessionStorage.getItem('All_LOCATIONS') ) || []
 };
 
-getAllLocations(){
-    return JSON.parse( sessionStorage.getItem('All_LOCATIONS') )
-}
 
-// not working ?
   componentDidMount() {
       if(navigator.geolocation){
           navigator.geolocation.getCurrentPosition(function(pos) {
@@ -37,7 +31,6 @@ getAllLocations(){
 
 
   respectedToAppliedFilters(i){
-    // return true
     return (this.props.appliedFilter.placeType ? i.placeType === this.props.appliedFilter.placeType : true)
     && ( this.props.appliedFilter.time ? this.compareTimeLongFormat(i.startTime , this.props.appliedFilter.time )
     && !this.compareTimeLongFormat(i.endTime , this.props.appliedFilter.time ) : true )
@@ -89,7 +82,6 @@ getAllLocations(){
     });
     
     return (
-      // Important! Always set the container height explicitly
       <div style={{ height: '90vh', width: '100%' }}>
         <GoogleMapReact
           defaultCenter={this.props.center}

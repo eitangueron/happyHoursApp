@@ -13,7 +13,8 @@ class LogIn extends Component {
     getAllLocations = async () => {
         try {
             const res = await axios.get(`http://localhost:3030/all_locations`);
-            await new Promise( sessionStorage.setItem('All_LOCATIONS', JSON.stringify(res.data)) )
+            sessionStorage.setItem('All_LOCATIONS', JSON.stringify(res.data))
+            window.location.reload()
           } catch (error) {
             console.error(error);
           }

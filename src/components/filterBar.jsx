@@ -21,9 +21,8 @@ export default class FilterBar extends Component {
                 onClick={() => {
                     this.props.setAppliedFilters({ time:null, radius:Infinity, placeType: null, name:"" })
                     document.getElementById("placeTypeFilter").value = ''
-                    // document.getElementById("radiusFilter").value = 0
-                    // document.getElementById("timeFilter").value = '0'
-
+                    document.getElementById("radiusFilter").value = ''
+                    document.getElementById('timeFilter').value = ''
                 }}>
                 Clear
                 </button>
@@ -43,7 +42,7 @@ export default class FilterBar extends Component {
                     <option value="coffeeHouse">Coffee House</option>
                 </select>
 
-                <input placeholder='Radius' type="number" id="radiusFilter'" min="0" max="5000" 
+                <input placeholder='Radius' type="number" id="radiusFilter" min="0" max="5000" 
                 onChange={ () => this.props.setAppliedFilters({ ...this.props.appliedFilter, radius:document.getElementById("radiusFilter").value }) }
                 />
                 

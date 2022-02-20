@@ -36,12 +36,6 @@ class App extends Component {
     this.setState({isLoggenIn : true})
   }
 
-  // getUserLocation () {
-  //   return navigator.geolocation.getCurrentPosition((position) => {
-  //       return {lat : position.coords.latitude, lng: position.coords.longitude }
-  //       })
-  //   }
-
   render() {
     return (
       <div id="allApp" style={{height:'100vh', width:'100vw'}}>
